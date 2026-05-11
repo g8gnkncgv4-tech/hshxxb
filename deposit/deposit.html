@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nạp tiền</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+<link rel="stylesheet" href="../css/_0x2436.css">
+
+
+
+</head>
+
+<body>
+
+   <!-- SUCCESS OVERLAY -->
+
+
+<!-- TOP BUTTONS -->
+<div class="topBtns">
+
+   <!-- BACK -->
+   <button
+   class="topBtn leftBtn"
+   onclick="goBackPage()">
+      ←
+   </button>
+
+   <!-- CLOSE -->
+   <button
+   class="topBtn rightBtn"
+   onclick="closePage()">
+      ✕
+   </button>
+
+</div>
+
+<div class="app">
+
+   <div class="card">
+
+      <div class="title">
+         Nạp tiền tự động
+      </div>
+
+      <div class="sub">
+         Quét mã VietQR để thanh toán
+      </div>
+
+      <!-- QR -->
+      <div class="qrWrap">
+
+         <div class="qrBox">
+
+            <img id="qrImage">
+
+         </div>
+
+      </div>
+
+      
+
+      <!-- TIME -->
+      <div class="timer">
+         QR hết hạn sau:
+         <span id="countdown">
+            01:00:00
+         </span>
+      </div>
+
+      <!-- INFO -->
+      <div class="info">
+
+         <div class="row">
+            <span class="label">
+               Ngân hàng
+            </span>
+
+            <span class="value" id="bankName">
+               ...
+            </span>
+         </div>
+
+         <div class="row">
+            <span class="label">
+               Chủ tài khoản
+            </span>
+
+            <span class="value" id="accountName">
+               ...
+            </span>
+         </div>
+
+         <div class="row">
+            <span class="label">
+               Số tài khoản
+            </span>
+
+            <span class="value" id="accountNumber">
+               ...
+            </span>
+         </div>
+
+         <div class="row">
+            <span class="label">
+               Số tiền
+            </span>
+
+            <span class="value" id="amountText">
+               0 VND
+            </span>
+         </div>
+
+         <div class="row">
+
+            <span class="label">
+               Nội dung
+            </span>
+
+            <div style="text-align:right">
+
+               <span
+               class="value"
+               id="transferContent">
+                  ...
+               </span>
+
+               <br>
+
+               <button
+               class="copy"
+               onclick="copyText('transferContent')">
+
+                  Sao chép
+
+               </button>
+
+            </div>
+
+         </div>
+
+      </div>
+
+      <div class="note">
+         Chuyển khoản đúng nội dung để
+         <b>cộng tiền tự động</b>
+      </div>
+
+      <div class="btns">
+
+         <button
+         class="btn cancel"
+         onclick="cancelPayment()">
+
+            Huỷ
+
+         </button>
+
+         <button
+         class="btn pay"
+         onclick="openCheckout()">
+
+           Tôi Đã Thanh toán
+
+         </button>
+
+      </div>
+
+      
+      <!-- HISTORY -->
+      
+</div>
+
+   <!-- HISTORY -->
+
+   
+<script>
+
+   
+
+const tg = window.Telegram.WebApp;
+tg.expand();
+
+/* USER */
+const userId =
+   tg.initDataUnsafe?.user?.id ||
+   Date.now();
+
+/* GET AMOUNT */
+const urlParams =
+   new URLSearchParams(
+      window.location.search
+   );
+
+const amount =
+   Number(urlParams.get("amount"));
+
+if(!amount || amount < 1000){
+
+   alert("Thiếu số tiền");
+}
+
+/* GLOBAL */
+let checkoutUrl = "";
+let paymentLinkId = "";
+
+/* BACK */
+function goBackPage(){
+
+   window.history.back();
+}
+
+/* CLOSE */
+function closePage(){
+
+   window.history.back();
+}
+
+/* COPY */
+function copyText(id){
+
+   const text =
+      document.getElementById(id)
+      .innerText;
+
+   navigator.clipboard.writeText(text);
+
+   alert("Đã sao chép");
+}
+
+/* CANCEL PAYMENT */
+async function cancelPayment(){
+
+   try{
+
+      if(!confirm("Huỷ thanh toán?")){
+         return;
+      }
+
+      const res =
+         await fetch(
+            "/api/cancel-payment",
+            {
+               method:"POST",
+               headers:{
+                  "Content-Type":
+                  "application/json"
+               },
+               body:JSON.stringify({
+                  paymentLinkId
+               })
+            }
+         );
+
+      const data = await res.json();
+
+      if(data.success){
+
+         alert("Đã huỷ thanh toán");
+
+         window.history.back();
+
+      }else{
+
+         alert("Huỷ thất bại");
+      }
+
+   }catch(err){
+
+      console.log(err);
+
+      alert("Lỗi huỷ thanh toán");
+   }
+}
+
+ /* CHECK PAYMENT */
+
+/* SHOW SUCCESS */
+
+function showSuccess(){
+
+   const overlay =
+   document.getElementById(
+      "successOverlay"
+   );
+
+   overlay.classList.add(
+      "show"
+   );
+
+}
+
+
+      /* CHECK PAYMENT */
+
+async function openCheckout(){
+
+   try{
+
+      const btn =
+      document.querySelector(".pay");
+
+      btn.disabled = true;
+
+      btn.innerText =
+      "Đang kiểm tra...";
+
+      const res =
+      await fetch(
+
+         `../api/check-payment?paymentLinkId=${paymentLinkId}`
+
+      );
+
+      const data =
+      await res.json();
+
+      if(data.paid){
+
+         showSuccess();
+
+         setTimeout(() => {
+
+            window.location.href =
+            "index.html";
+
+         },1800);
+
+      }else{
+
+         alert(
+            "Chưa nhận được thanh toán"
+         );
+
+         btn.disabled = false;
+
+         btn.innerText =
+         "Tôi Đã Thanh toán";
+
+      }
+
+   }catch(err){
+
+      console.log(err);
+
+      alert("Lỗi kiểm tra");
+
+   }
+
+}
+
+  /* AUTO CHECK */
+
+async function autoCheckPayment(){
+
+   try{
+
+      if(!paymentLinkId){
+         return;
+      }
+
+      const res =
+      await fetch(
+
+         `../api/check-payment?paymentLinkId=${paymentLinkId}`
+
+      );
+
+      const data =
+      await res.json();
+
+      if(data.paid){
+
+         clearInterval(
+            window.paymentInterval
+         );
+
+         showSuccess();
+
+         setTimeout(() => {
+
+            window.location.href =
+            "index.html";
+
+         },1800);
+
+      }
+
+   }catch(err){
+
+      console.log(err);
+   }
+
+} 
+
+   
+
+/* COUNTDOWN */
+let total = 60 * 60;
+
+function updateCountdown(){
+
+   const h =
+      String(
+         Math.floor(total / 3600)
+      ).padStart(2,"0");
+
+   const m =
+      String(
+         Math.floor(
+            (total % 3600) / 60
+         )
+      ).padStart(2,"0");
+
+   const s =
+      String(
+         total % 60
+      ).padStart(2,"0");
+
+   document.getElementById(
+      "countdown"
+   ).innerText =
+      `${h}:${m}:${s}`;
+
+   if(total <= 0){
+
+      alert("QR đã hết hạn");
+
+      location.reload();
+
+      return;
+   }
+
+   total--;
+}
+
+setInterval(updateCountdown,1000);
+
+/* CREATE PAYMENT */
+async function initPayment(){
+
+   try{
+
+      const res =
+         await fetch(
+            "/api/create-payment",
+            {
+               method:"POST",
+               headers:{
+                  "Content-Type":
+                  "application/json"
+               },
+               body:JSON.stringify({
+                  userId,
+                  amount
+               })
+            }
+         );
+
+      const data =
+         await res.json();
+
+      /* SAVE IDS */
+      paymentLinkId =
+         data.paymentLinkId;
+
+      checkoutUrl =
+         data.checkoutUrl;
+
+      /* START AUTO CHECK */
+
+window.paymentInterval =
+setInterval(
+   autoCheckPayment,
+   3000
+);
+
+      /* CREATE QR */
+      QRCode.toDataURL(
+         data.qrCode,
+         function(err,url){
+
+            if(err){
+
+               console.log(err);
+               return;
+            }
+
+            document.getElementById(
+               "qrImage"
+            ).src = url;
+         }
+      );
+
+      /* INFO */
+      document.getElementById(
+         "transferContent"
+      ).innerText =
+         data.description;
+
+      document.getElementById(
+         "amountText"
+      ).innerText =
+         amount.toLocaleString()
+         + " VND";
+
+      document.getElementById(
+         "bankName"
+      ).innerText =
+         data.bankName ||
+         "MB Bank";
+
+      document.getElementById(
+         "accountName"
+      ).innerText =
+         data.accountName ||
+         "NGUYEN TANG HOANG";
+
+      document.getElementById(
+         "accountNumber"
+      ).innerText =
+         data.accountNumber ||
+         "703062010";
+
+   }catch(err){
+
+      console.log(err);
+
+     alert("Lỗi tạo QR");
+   }
+}
+
+   document.addEventListener("selectstart", (e) => {
+
+  const tag = e.target.tagName;
+
+  if (
+    tag !== "INPUT" &&
+    tag !== "TEXTAREA"
+  ) {
+    e.preventDefault();
+  }
+
+});
+
+/* CHẶN COPY */
+
+document.addEventListener("copy", (e) => {
+
+  const active =
+  document.activeElement.tagName;
+
+  if (
+    active !== "INPUT" &&
+    active !== "TEXTAREA"
+  ) {
+    e.preventDefault();
+  }
+
+});
+
+/* CHẶN CUT */
+
+document.addEventListener("cut", (e) => {
+
+  const active =
+  document.activeElement.tagName;
+
+  if (
+    active !== "INPUT" &&
+    active !== "TEXTAREA"
+  ) {
+    e.preventDefault();
+  }
+
+});
+
+/* CHẶN PASTE NGOÀI INPUT */
+
+document.addEventListener("paste", (e) => {
+
+  const active =
+  document.activeElement.tagName;
+
+  if (
+    active !== "INPUT" &&
+    active !== "TEXTAREA"
+  ) {
+    e.preventDefault();
+  }
+
+});
+
+/* CHẶN CHUỘT PHẢI */
+
+document.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+});
+
+/* CHẶN GIỮ IOS */
+
+document.addEventListener("touchstart", (e) => {
+
+  const tag = e.target.tagName;
+
+  if (
+    tag !== "INPUT" &&
+    tag !== "TEXTAREA"
+  ) {
+
+    e.target.style.webkitTouchCallout = "none";
+
+  }
+
+});
+
+/* CHẶN KÉO ẢNH */
+
+document.addEventListener("dragstart", (e) => {
+  e.preventDefault();
+});
+
+/* CHẶN PHÍM TẮT */
+
+document.addEventListener("keydown", (e) => {
+
+  /* CTRL + C */
+  if (e.ctrlKey && e.key.toLowerCase() === "c") {
+    e.preventDefault();
+  }
+
+  /* CTRL + U */
+  if (e.ctrlKey && e.key.toLowerCase() === "u") {
+    e.preventDefault();
+  }
+
+  /* CTRL + S */
+  if (e.ctrlKey && e.key.toLowerCase() === "s") {
+    e.preventDefault();
+  }
+
+  /* CTRL + SHIFT + I */
+  if (
+    e.ctrlKey &&
+    e.shiftKey &&
+    e.key.toLowerCase() === "i"
+  ) {
+    e.preventDefault();
+  }
+
+  /* F12 */
+  if (e.key === "F12") {
+    e.preventDefault();
+  }
+
+});
+
+/* CHẶN GIỮ ẢNH IOS */
+
+document.querySelectorAll("img").forEach((img) => {
+
+  img.setAttribute("draggable", "false");
+
+  img.style.pointerEvents = "none";
+
+  img.style.userSelect = "none";
+
+  img.style.webkitUserDrag = "none";
+
+  img.style.webkitTouchCallout = "none";
+
+});
+
+
+initPayment();
+   loadHistory();
+
+</script>
+
+</body>
+</html>

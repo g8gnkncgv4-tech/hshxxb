@@ -1,0 +1,907 @@
+:root{
+  --bg:#04091f;
+  --card:#121933;
+  --card2:#0d1430;
+  --line:rgba(255,255,255,.07);
+  --text:#ffffff;
+  --muted:#9aa4d3;
+  --purple:#7b63ff;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+  width:100%;
+  min-height:100%;
+  overflow-x:hidden;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Be Vietnam Pro',sans-serif;
+}
+
+body{
+  padding-bottom:120px;
+
+  background:
+    radial-gradient(circle at top left,#18255f 0%,transparent 35%),
+    radial-gradient(circle at top right,#11183f 0%,transparent 25%),
+    #04091f;
+}
+
+
+  .historyCard{
+
+   margin-top:20px;
+   background:#111;
+   border-radius:18px;
+   padding:15px;
+
+}
+
+.historyTitle{
+
+   color:#fff;
+   font-size:18px;
+   font-weight:700;
+   margin-bottom:15px;
+
+}
+
+.historyItem{
+
+   background:#1a1a1a;
+   border-radius:14px;
+   padding:14px;
+   margin-bottom:12px;
+
+}
+
+.historyTop{
+
+   display:flex;
+   justify-content:space-between;
+   align-items:center;
+   margin-bottom:12px;
+
+}
+
+.historyCode{
+
+   color:#fff;
+   font-weight:700;
+   font-size:15px;
+
+}
+
+.historyType{
+
+   color:#888;
+   font-size:13px;
+   margin-top:4px;
+
+}
+
+.clearHistoryBtn{
+
+   width:100%;
+   height:45px;
+
+   border:none;
+   border-radius:12px;
+
+   background:#ff3b3b;
+   color:#fff;
+
+   font-size:15px;
+   font-weight:600;
+
+   margin-bottom:15px;
+
+}
+
+.clearHistoryBtn:active{
+
+   opacity: 0.6;
+
+   transform: scale(0.97);
+
+}
+
+.status{
+
+   padding:6px 10px;
+   border-radius:999px;
+   font-size:12px;
+   font-weight:700;
+
+}
+
+.pending{
+
+   background:#3a2d00;
+   color:#ffcc00;
+
+}
+
+.success{
+
+   background:#003b1f;
+   color:#00ff88;
+
+}
+
+.expired{
+
+   background:#3b0000;
+   color:#ff4d4d;
+
+}
+
+.historyInfo{
+
+   margin-top:10px;
+
+}
+
+.historyRow{
+
+   display:flex;
+   justify-content:space-between;
+   margin-bottom:8px;
+   color:#ddd;
+   font-size:14px;
+
+}
+
+.historyBtns{
+
+   display:flex;
+   gap:10px;
+   margin-top:14px;
+
+}
+
+.historyBtn{
+
+   flex:1;
+   border:none;
+   border-radius:10px;
+   padding:10px;
+   font-weight:700;
+   color:#fff;
+
+}
+
+.historyBtn:active{
+
+   opacity: 0.6;
+
+   transform: scale(0.97);
+
+}
+
+.copyBtn{
+
+   background:#5b5bff;
+
+}
+
+.copyBtn:active{
+
+   opacity: 0.6;
+
+   transform: scale(0.97);
+
+}
+
+.qrBtn2{
+
+   background:#00aa66;
+
+}
+
+
+.qrBtn2:active{
+
+   opacity: 0.6;
+
+   transform: scale(0.97);
+
+}
+
+#modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(6px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#modalBox {
+  width: 360px;
+  max-width: 90%;
+  background: #11193d;
+  border-radius: 18px;
+  padding: 18px;
+  color: white;
+  box-shadow: 0 10px 40px rgba(0,0,0,.5);
+}
+
+#modalOverlay1 {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  backdrop-filter: blur(6px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#modalBox1 {
+  width: 360px;
+  max-width: 90%;
+  background: #11193d;
+  border-radius: 18px;
+  padding: 18px;
+  color: white;
+  box-shadow: 0 10px 40px rgba(0,0,0,.5);
+}
+
+.cancelBtn2{
+
+   background:#ff3b30;
+
+}
+
+.app{
+  width:100%;
+  min-height:100vh;
+}
+
+#packagePage input,
+#packagePage textarea{
+
+  width:100%;
+  height:52px;
+  margin-top:12px;
+  background:#1a2452;
+  border:none;
+  border-radius:16px;
+  padding:0 16px;
+  color:white;
+  font-size:15px;
+  box-sizing:border-box;
+
+}
+
+#packagePage textarea{
+
+  height:120px;
+  padding-top:14px;
+  resize:none;
+
+}
+
+.depositCard {
+  background: #11193d;
+  padding: 18px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.label {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.inputRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.moneyInput {
+  flex: 1;
+  height: 50px;
+  border-radius: 14px;
+  border: none;
+  background: #1a2452;
+  padding: 0 14px;
+  color: white;
+  font-size: 16px;
+}
+
+.qrBtn {
+  height: 50px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7b63ff, #9b8cff);
+  color: white;
+  font-weight: 700;
+}
+
+.qrBtn:active{
+  transform:scale(.95);
+  opacity:.7;
+  filter:brightness(.8);
+}
+
+.note {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #9aa4d3;
+}
+
+.bankCard {
+  background: #11193d;
+  border-radius: 20px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.bankRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px dashed rgba(255,255,255,0.15);
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.bankRow span {
+  color: #9aa4d3;
+}
+
+.bankRow b {
+  color: white;
+}
+
+.depositTabs{
+  display:flex;
+  gap:10px;
+  margin:15px 0;
+}
+
+.tab{
+  flex:1;
+  text-align:center;
+  padding:12px;
+  border-radius:14px;
+  background:#1a1a1a;
+  opacity:.6;
+}
+
+.tab.active{
+  background:linear-gradient(90deg,#7c6cff,#9b8cff);
+  opacity:1;
+  font-weight:700;
+}
+
+.depositBox{
+  background:#1a2238;
+  padding:15px;
+  border-radius:16px;
+}
+
+.rowInput{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+.rowInput input{
+  flex:1;
+  height:45px;
+  border:none;
+  border-radius:10px;
+  padding:0 10px;
+}
+
+.rowInput button{
+  width:100px;
+  border:none;
+  border-radius:10px;
+  background:#7c6cff;
+  color:white;
+}
+
+.bankBox{
+  margin-top:15px;
+  background:#1a2238;
+  padding:15px;
+  border-radius:16px;
+}
+
+.bankBox .row{
+  display:flex;
+  justify-content:space-between;
+  padding:10px;
+  border:1px dashed #333;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+.history{
+  margin-top:20px;
+}
+
+.order{
+  background:#1a2238;
+  padding:15px;
+  border-radius:16px;
+  margin-bottom:10px;
+}
+
+.status{
+  color:orange;
+  border:1px solid orange;
+  padding:4px 10px;
+  border-radius:10px;
+  font-size:12px;
+}
+
+.cancelBtn{
+  margin-top:10px;
+  background:red;
+  color:white;
+  border:none;
+  padding:6px 12px;
+  border-radius:8px;
+}
+
+.depositHeader{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.backBtn{
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:12px;
+  background:#1f2937;
+  color:#fff;
+  font-size:16px;
+}
+
+.depositPageTitle{
+  font-size:20px;
+  font-weight:700;
+}
+
+.depositCard{
+  background:#111827;
+  border-radius:20px;
+  padding:18px;
+}
+
+.depositTitle{
+  font-size:17px;
+  font-weight:700;
+  margin-bottom:18px;
+}
+
+.qrWrap{
+  display:flex;
+  justify-content:center;
+}
+
+.qrImage{
+  width:230px;
+  background:#fff;
+  border-radius:16px;
+}
+
+.bankInfo{
+  margin-top:18px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  font-size:14px;
+}
+
+.depositNote{
+  margin-top:16px;
+  opacity:.7;
+  font-size:13px;
+}
+
+/* BLOCKED */
+
+.blockedPage{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+  padding:20px;
+}
+
+.blockedPage h1{
+  font-size:30px;
+}
+
+.blockedPage p{
+  margin-top:14px;
+  opacity:.7;
+  font-size:17px;
+}
+
+/* PROFILE */
+
+.profile{
+  width:100%;
+  padding:10px 12px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #141c46,
+      #0c1230
+    );
+
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.leftProfile{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.avatar{
+  width:47px;
+  height:47px;
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffc86b,
+      #ffb347
+    );
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:22px;
+  font-weight:800;
+
+  flex-shrink:0;
+}
+
+.userInfo{
+  min-width:0;
+}
+
+.name{
+  font-size:14px;
+  font-weight:800;
+
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.username{
+  margin-top:3px;
+  font-size:11px;
+  color:#aeb8ea;
+}
+
+.balance{
+  flex-shrink:0;
+
+  padding:8px 12px;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.05);
+
+  border:1px solid rgba(255,255,255,.06);
+
+  font-size:10px;
+  font-weight:700;
+}
+
+/* CONTENT */
+
+.content{
+  padding:24px 16px 0;
+}
+
+.title{
+  font-size:17px;
+  font-weight:800;
+  margin-bottom:22px;
+}
+
+/* SEARCH */
+
+.searchWrap{
+  display:flex;
+  gap:12px;
+  margin-bottom:24px;
+}
+
+.searchWrap input{
+  flex:1;
+  height:40px;
+
+  border:none;
+  outline:none;
+
+  background:#141b3c;
+  color:white;
+
+  border-radius:14px;
+  padding:0 20px;
+
+  font-size:13px;
+
+  border:1px solid rgba(255,255,255,.06);
+}
+
+.searchWrap button{
+  width:100px;
+
+  border:none;
+  border-radius:14px;
+
+  background:#11193d;
+  color:white;
+
+  font-size:13px;
+  font-weight:700;
+
+  border:1px solid rgba(255,255,255,.06);
+
+  cursor:pointer;
+}
+
+.searchWrap button:active{
+  transform:scale(.95);
+  opacity:.7;
+  filter:brightness(.8);
+}
+
+/* PRODUCTS */
+
+.products{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.product{
+  background:
+    linear-gradient(
+      90deg,
+      #151d45,
+      #0f1632
+    );
+
+  border-radius:14px;
+  padding:12px;
+
+  border:1px solid rgba(255,255,255,.07);
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+}
+
+.productLeft{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.product img{
+  width:65px;
+  height:65px;
+  border-radius:14px;
+  object-fit:cover;
+}
+
+.productName{
+  font-size:17px;
+  font-weight:800;
+}
+
+.productType{
+  margin-top:7px;
+  font-size:13px;
+  color:#adb7e9;
+}
+
+.chooseBtn{
+  width:77px;
+  height:40px;
+
+  border:none;
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7d63ff,
+      #9778ff
+    );
+
+  color:white;
+
+  font-size:13px;
+  font-weight:800;
+
+  cursor:pointer;
+}
+
+.chooseBtn:active{
+  transform:scale(.95);
+  opacity:.7;
+  filter:brightness(.8);
+}
+/* ADMIN */
+
+.adminPanel{
+  margin-bottom:26px;
+
+  background:#11183a;
+  border:1px solid rgba(255,255,255,.07);
+
+  border-radius:14px;
+  padding:18px;
+
+  display:none;
+}
+
+.adminTitle{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:15px;
+}
+
+.adminPanel input{
+  width:100%;
+  height:50px;
+
+  margin-bottom:12px;
+
+  border:none;
+  outline:none;
+
+  background:#1a2452;
+  color:white;
+
+  border-radius:14px;
+  padding:0 17px;
+
+  font-size:17px;
+}
+
+.adminPanel button{
+  width:100%;
+  height:50px;
+
+  border:none;
+  border-radius:14px;
+
+  background:var(--purple);
+  color:white;
+
+  font-size:15px;
+  font-weight:700;
+
+  cursor:pointer;
+}
+
+.adminPanel button:active{
+  transform:scale(.95);
+  opacity:.7;
+  filter:brightness(.8);
+}
+
+/* NAV */
+
+.bottomNav{
+  position:fixed;
+  bottom:0;
+  left:0;
+
+  width:100%;
+
+  padding:8px 0 calc(10px + env(safe-area-inset-bottom));
+
+  background:
+    rgba(5,10,31,.97);
+
+  backdrop-filter:blur(10px);
+
+  border-top:1px solid rgba(255,255,255,.05);
+
+  display:flex;
+  justify-content:center;
+  gap:18px;
+}
+
+.navBtn{
+  width:50px;
+  height:50px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.05);
+
+  border:1px solid rgba(255,255,255,.06);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#cfd5ff;
+  font-size:22px;
+}
+
+.navBtn.active{
+  background:
+    radial-gradient(
+      circle at top,
+      #7c63ff,
+      #5240d4
+    );
+
+  color:white;
+  box-shadow:
+    0 0 18px rgba(124,99,255,.4);
+}
+
+/* CHẶN BÔI ĐEN */
+
+*{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+
+/* CHO PHÉP INPUT */
+
+input,
+textarea{
+  -webkit-user-select:text !important;
+  user-select:text !important;
+  -webkit-touch-callout:default !important;
+}
+
+/* CHẶN KÉO ẢNH */
+
+img{
+  -webkit-user-drag:none;
+  user-drag:none;
+}

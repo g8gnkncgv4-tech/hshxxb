@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+/>
+
+<title>Mini App</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<!-- FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+/>
+
+<!-- ICON -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+/>
+
+<!-- CSS -->
+<link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- PROFILE -->
+  <div class="profile">
+
+    <div class="leftProfile">
+
+      <div class="avatar" id="avatarText">U</div>
+
+      <div class="userInfo">
+
+        <div class="name" id="fullname">
+          Loading...
+        </div>
+
+        <div class="username">
+          @<span id="username">loading</span>
+          &nbsp;•&nbsp;
+          id:<span id="userid">0</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="balance">
+      Số dư&nbsp; 0 đ
+    </div>
+
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ADMIN -->
+    <div class="adminPanel" id="adminPanel">
+
+      <div class="adminTitle">
+        👑 Quản lý sản phẩm
+      </div>
+
+      <input type="text" id="gameName" placeholder="Tên game">
+      <input type="text" id="gameType" placeholder="Ví dụ: Có 2 loại">
+      <input type="text" id="gameImage" placeholder="Link ảnh">
+
+      <button onclick="addGame()">
+        Thêm sản phẩm
+      </button>
+
+    </div>
+
+    <!-- HOME -->
+    <div class="title" id="homeTitle">
+      Trang chủ
+    </div>
+
+    <div class="searchWrap" id="searchBar">
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Tìm sản phẩm..."
+        onkeyup="searchProducts()"
+      >
+
+      <button id="refreshBtn" onclick="reloadPage()">
+        Làm mới
+      </button>
+
+    </div>
+
+    <div class="products" id="products"></div>
+
+    <!-- PAGE RENDER BẰNG JS -->
+    <div id="pageContainer"></div>
+
+    <!-- PACKAGES -->
+    <div id="packagePage" style="display:none"></div>
+
+    <!-- DETAIL -->
+    <div id="detailPage" style="display:none"></div>
+  </div>
+   
+
+</div>
+
+<!-- NAV -->
+<div class="bottomNav">
+
+  <!-- HOME -->
+  <div class="navBtn active" onclick="showHome(); setActiveNav(0)">
+    <i class="fa-solid fa-house"></i>
+  </div>
+
+  <!-- NẠP TIỀN -->
+  <div class="navBtn" onclick="showDeposit(); setActiveNav(1)">
+    <i class="fa-solid fa-wallet"></i>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="navBtn" onclick="showLichsu(); setActiveNav(2)">
+    <i class="fa-solid fa-clock-rotate-left"></i>
+  </div>
+
+  <!-- USER -->
+  <div class="navBtn" onclick="showProfile(); setActiveNav(3)">
+    <i class="fa-regular fa-user"></i>
+  </div>
+
+
+  
+</div>
+
+<!-- JS -->
+<script type="module" src="./javascript/app.js"></script>
+
+</body>
+</html>

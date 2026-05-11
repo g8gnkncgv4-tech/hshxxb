@@ -1,0 +1,377 @@
+*{
+   margin:0;
+   padding:0;
+   box-sizing:border-box;
+   font-family:Arial;
+}
+
+body{
+   background:#0f1115;
+   color:white;
+}
+
+.app{
+   min-height:100vh;
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   padding:20px;
+}
+
+.card{
+   width:100%;
+   max-width:420px;
+   background:#171a21;
+   border-radius:24px;
+   padding:22px;
+   border:1px solid rgba(255,255,255,.06);
+}
+
+.title{
+   text-align:center;
+   font-size:24px;
+   font-weight:700;
+   margin-bottom:6px;
+}
+
+.sub{
+   text-align:center;
+   color:#999;
+   font-size:14px;
+   margin-bottom:20px;
+}
+
+.qrWrap{
+   display:flex;
+   justify-content:center;
+   margin-bottom:18px;
+}
+
+.qrBox{
+   width:280px;
+   height:280px;
+   background:white;
+   border-radius:22px;
+   padding:18px;
+   position:relative;
+}
+
+#qrImage{
+   width:100%;
+   height:100%;
+   border-radius:12px;
+}
+/* =========================
+   HISTORY
+========================= */
+/* SUCCESS OVERLAY */
+
+.successOverlay{
+
+   position: fixed;
+
+   inset: 0;
+
+   background:
+   rgba(0,0,0,.45);
+
+   backdrop-filter:
+   blur(8px);
+
+   -webkit-backdrop-filter:
+   blur(8px);
+
+   display: flex;
+
+   align-items: center;
+
+   justify-content: center;
+
+   opacity: 0;
+
+   visibility: hidden;
+
+   transition: .25s ease;
+
+   z-index: 999999;
+}
+
+.successOverlay.show{
+
+   opacity: 1;
+
+   visibility: visible;
+}
+
+.successBox{
+
+   width: 250px;
+
+   background: #fff;
+
+   border-radius: 28px;
+
+   padding:
+   32px 24px;
+
+   text-align: center;
+
+   animation:
+   successPop .28s ease;
+}
+
+.successCircle{
+
+   width: 92px;
+
+   height: 92px;
+
+   margin: auto;
+
+   border-radius: 50%;
+
+   background:
+   linear-gradient(
+      135deg,
+      #21d96c,
+      #16b85a
+   );
+
+   display: flex;
+
+   align-items: center;
+
+   justify-content: center;
+
+   box-shadow:
+   0 10px 35px
+   rgba(33,217,108,.35);
+}
+
+.successTitle{
+
+   margin-top: 22px;
+
+   font-size: 22px;
+
+   font-weight: 800;
+
+   color: #111;
+}
+
+.successDesc{
+
+   margin-top: 8px;
+
+   font-size: 14px;
+
+   color: #666;
+
+   line-height: 1.5;
+}
+
+@keyframes successPop{
+
+   from{
+
+      transform:
+      scale(.82);
+
+      opacity: 0;
+   }
+
+   to{
+
+      transform:
+      scale(1);
+
+      opacity: 1;
+   }
+}
+ 
+
+
+
+
+
+
+
+/* TOP BUTTONS */
+.topBtns{
+   position:fixed;
+   inset:0;
+   z-index:999999;
+   pointer-events:none;
+}
+
+.topBtn{
+   position:fixed;
+
+   width:46px;
+   height:46px;
+
+   border:none;
+   border-radius:50%;
+
+   background:#1f232d;
+   color:white;
+
+   font-size:24px;
+   font-weight:700;
+
+   display:flex;
+   align-items:center;
+   justify-content:center;
+
+   box-shadow:
+   0 6px 20px rgba(0,0,0,.45);
+
+   pointer-events:auto;
+
+   backdrop-filter:blur(10px);
+
+   -webkit-backdrop-filter:blur(10px);
+}
+
+.leftBtn{
+   top:18px;
+   left:16px;
+}
+
+.rightBtn{
+   top:18px;
+   right:16px;
+}
+
+.timer{
+   margin-top:18px;
+   text-align:center;
+   font-size:15px;
+   color:#ffcc66;
+   margin-bottom:18px;
+}
+
+.info{
+   background:#101318;
+   border-radius:16px;
+   padding:15px;
+}
+
+.row{
+   display:flex;
+   justify-content:space-between;
+   gap:10px;
+   margin-bottom:14px;
+}
+
+.row:last-child{
+   margin-bottom:0;
+}
+
+.label{
+   color:#8b8b8b;
+   font-size:14px;
+}
+
+.value{
+   font-weight:700;
+   text-align:right;
+   word-break:break-all;
+}
+
+
+
+.note{
+   margin-top:18px;
+   text-align:center;
+   font-size:14px;
+   color:#a7a7a7;
+   line-height:1.5;
+}
+
+.note b{
+   color:#fff;
+}
+
+.btns{
+   display:flex;
+   gap:12px;
+   margin-top:20px;
+}
+
+.btn{
+   flex:1;
+   height:50px;
+   border:none;
+   border-radius:14px;
+   font-size:16px;
+   font-weight:700;
+}
+
+.cancel{
+   background:#2a2d35;
+   color:#fff;
+}
+
+.pay{
+   background:#6d3df5;
+   color:white;
+}
+
+
+
+
+
+
+/* INPUT */
+.input{
+   width:100%;
+   height:50px;
+   border:none;
+   border-radius:12px;
+   padding:0 15px;
+   margin-top:15px;
+   background:#1a1a1a;
+   color:white;
+   font-size:16px;
+}
+
+
+
+
+
+
+/* COPY */
+.copy{
+   background:#1f2937;
+   border:none;
+   border-radius:8px;
+   padding:4px 10px;
+   font-size:12px;
+   color:white;
+   margin-left:8px;
+   cursor:pointer;
+
+}
+
+*{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+
+/* CHO PHÉP INPUT */
+
+input,
+textarea{
+  -webkit-user-select:text !important;
+  user-select:text !important;
+  -webkit-touch-callout:default !important;
+}
+
+/* CHẶN KÉO ẢNH */
+
+img{
+  -webkit-user-drag:none;
+  user-drag:none;
+}
